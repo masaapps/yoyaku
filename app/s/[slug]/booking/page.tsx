@@ -228,6 +228,7 @@ export default function StoreBookingPage() {
         <div className="flex items-center justify-between gap-3">
           <Link
             href="/login"
+            prefetch={false}
             className="inline-flex shrink-0 items-center gap-1 rounded-full border border-green-800 bg-white px-3 py-1.5 text-xs font-medium text-green-800 transition active:scale-[0.98]"
           >
             {dictionaries[ownerAdminLocale].bookingMenu.storeOwnerLink}

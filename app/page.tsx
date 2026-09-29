@@ -110,7 +110,11 @@ export default function LandingPage() {
 
         <p className="text-center text-sm text-stone-500">
           すでにご利用中の店舗様は{" "}
-          <Link href="/login" className="font-bold text-green-800">
+          <Link
+            href="/login"
+            prefetch={false}
+            className="font-bold text-green-800"
+          >
             こちらからログイン
           </Link>
         </p>

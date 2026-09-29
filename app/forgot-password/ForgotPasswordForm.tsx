@@ -98,7 +98,7 @@ export default function ForgotPasswordForm() {
         <Card className="space-y-4">
           <p className="text-sm font-bold text-green-800">{successMessage}</p>
 
-          <Link href="/login" className="block">
+          <Link href="/login" prefetch={false} className="block">
             <Button variant="secondary">{t.backToLoginLink}</Button>
           </Link>
         </Card>
@@ -140,6 +140,7 @@ export default function ForgotPasswordForm() {
 
             <Link
               href="/login"
+              prefetch={false}
               className="block text-center text-sm font-bold text-green-800"
             >
               {t.backToLoginLink}
