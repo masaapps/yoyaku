@@ -352,6 +352,7 @@ const en: Dictionary = {
     bookingsList: {
       pageTitle: "Bookings",
       subtitle: "Check the bookings that have been saved.",
+      newBookingButton: "Add a booking manually",
       emptyState: "No bookings yet.",
       customerLabel: "Customer: ",
       contentLabel: "Details: ",

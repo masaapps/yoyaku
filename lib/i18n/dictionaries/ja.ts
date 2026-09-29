@@ -351,6 +351,7 @@ const ja: Dictionary = {
     bookingsList: {
       pageTitle: "予約一覧",
       subtitle: "保存されている予約を確認できます。",
+      newBookingButton: "予約を手動で追加",
       emptyState: "予約はまだありません。",
       customerLabel: "お客様：",
       contentLabel: "内容：",
