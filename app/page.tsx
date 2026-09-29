@@ -33,20 +33,59 @@ export default function LandingPage() {
   return (
     <MobileFrame>
       <div className="space-y-4 pb-12">
-        <Card className="space-y-4 text-center">
-          <p className="text-sm font-bold text-green-800">Yoyakus</p>
-          <h1 className="text-3xl font-black leading-tight text-stone-900">
-            電話・紙の予約帳のお店でも、
+        <div className="overflow-hidden rounded-[32px] bg-gradient-to-br from-green-900 via-green-800 to-green-600 px-6 pb-7 pt-8 text-center text-white shadow-xl">
+          <p className="text-2xl font-black tracking-wide">Yoyakus</p>
+
+          <h1 className="mt-4 text-xl font-bold leading-relaxed">
+            「電話対応や紙の予約帳に、
             <br />
-            今日から使える予約システム
+            もう振り回されたくない」
           </h1>
-          <p className="text-sm leading-6 text-stone-600">
-            マッサージ・リラクゼーション店のための、無理なく始められる予約管理サービスです。難しい設定なしで、今日からお店の予約を受け付けられます。
+
+          <p className="mx-auto mt-2 max-w-[280px] text-sm leading-6 text-white/85">
+            そんな小さなお店のための、今日から無理なく使える予約管理アプリです。
           </p>
-          <Link href="/apply" className="block">
-            <Button>無料で使ってみる</Button>
+
+          <div className="mx-auto mt-6 w-[200px] rounded-[32px] border-[6px] border-stone-950 bg-stone-950 shadow-2xl">
+            <div className="overflow-hidden rounded-[24px] bg-stone-100">
+              <div className="relative h-24 bg-gradient-to-br from-[#2b241d] via-[#5f4b36] to-[#c9ad7f]">
+                <div className="absolute inset-0 bg-black/25" />
+                <div className="relative z-10 flex h-full flex-col justify-end p-3 text-left">
+                  <p className="text-[8px] font-bold uppercase tracking-wide text-white/80">
+                    サンプル
+                  </p>
+                  <p className="font-serif text-base leading-tight text-white">
+                    ◯◯マッサージ
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-1.5 bg-white p-3">
+                {sampleMenu.map((menu) => (
+                  <div
+                    key={menu.name}
+                    className="flex items-center justify-between rounded-xl border border-stone-200 px-2 py-1.5"
+                  >
+                    <span className="text-[10px] font-bold text-stone-800">
+                      {menu.name}
+                    </span>
+                    <span className="text-[10px] font-bold text-stone-900">
+                      ¥{menu.price.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Link href="/apply" className="mx-auto mt-6 block max-w-[280px]">
+            <Button variant="secondary">無料で使ってみる</Button>
           </Link>
-        </Card>
+
+          <p className="mt-2 text-xs text-white/70">
+            登録は数分。今なら試用期間中で無料です。
+          </p>
+        </div>
 
         {features.map((feature) => (
           <Card key={feature.title} className="space-y-2">
@@ -56,45 +95,6 @@ export default function LandingPage() {
             <p className="text-sm leading-6 text-stone-600">{feature.body}</p>
           </Card>
         ))}
-
-        <Card className="space-y-3">
-          <h2 className="text-lg font-bold text-stone-900">
-            登録すると、あなたのお店の予約ページができます
-          </h2>
-          <p className="text-sm leading-6 text-stone-600">
-            以下はサンプル画面です。実際には、お店の名前・メニュー・料金が反映されたページが、専用のURLで公開されます。
-          </p>
-
-          <div className="overflow-hidden rounded-[28px] border border-stone-200 shadow-md">
-            <div className="relative h-32 bg-gradient-to-br from-[#2b241d] via-[#5f4b36] to-[#c9ad7f] text-white">
-              <div className="absolute inset-0 bg-black/25" />
-              <div className="relative z-10 flex h-full flex-col justify-end p-4">
-                <p className="text-[10px] font-bold uppercase tracking-wide opacity-80">
-                  サンプル
-                </p>
-                <h3 className="font-serif text-2xl leading-tight">
-                  ◯◯マッサージ
-                </h3>
-              </div>
-            </div>
-
-            <div className="space-y-2 bg-white p-4">
-              {sampleMenu.map((menu) => (
-                <div
-                  key={menu.name}
-                  className="flex items-center justify-between rounded-2xl border border-stone-200 px-3 py-2"
-                >
-                  <span className="text-sm font-bold text-stone-800">
-                    {menu.name}
-                  </span>
-                  <span className="text-sm font-bold text-stone-900">
-                    ¥{menu.price.toLocaleString()}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Card>
 
         <Card className="space-y-3 text-center">
           <h2 className="text-lg font-bold text-stone-900">
