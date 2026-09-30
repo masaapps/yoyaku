@@ -1,119 +1,232 @@
 import Link from "next/link";
 
 import MobileFrame from "@/components/layout/MobileFrame";
-import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
+import DepositToggle from "@/components/landing/DepositToggle";
 
-const features = [
+type Channel = "phone" | "whatsapp" | "app";
+
+const channelStyles: Record<Channel, { label: string; className: string }> = {
+  phone: { label: "電話", className: "bg-green-800 text-white" },
+  whatsapp: { label: "WhatsApp", className: "bg-[#1f7a4d] text-white" },
+  app: { label: "アプリ", className: "bg-mustard-300 text-green-900" },
+};
+
+const todaysBookings: {
+  time: string;
+  menu?: string;
+  channel?: Channel;
+  deposit?: boolean;
+}[] = [
+  { time: "10:00", menu: "全身マッサージ 60分", channel: "phone" },
+  { time: "11:30", menu: "フットマッサージ 30分", channel: "whatsapp" },
+  { time: "13:00" },
+  { time: "14:00", menu: "全身+フット 90分", channel: "app", deposit: true },
+  { time: "16:00" },
+];
+
+const channels: { channel: Channel; body: string }[] = [
   {
-    title: "電話・WhatsApp・アプリ予約、好きな方法を選べる",
-    body: "お客様は空いている時間を見て、電話・WhatsApp・アプリ内予約のうち、お店が選んだ方法で連絡できます。すべてをアプリ化する必要はありません。",
+    channel: "phone",
+    body: "いつも通り電話で受けて、その場で空き枠に入れるだけ。",
   },
   {
-    title: "予約金(デポジット)で無断キャンセルを防止",
-    body: "ご希望の店舗様だけ、カードでの予約金の受け取りを設定できます。無理に導入する必要はなく、今まで通りの現地払いのままでもご利用いただけます。",
+    channel: "whatsapp",
+    body: "メッセージで届いた予約も、同じ予約表にまとめられます。",
   },
   {
-    title: "メニュー・スタッフ・スケジュールをまとめて管理",
-    body: "施術メニューや料金、スタッフの出勤表、営業時間・休業日を、スマホから簡単に設定・変更できます。",
-  },
-  {
-    title: "9言語に対応",
-    body: "日本語・英語・中国語・韓国語・ドイツ語・オランダ語・フランス語・スペイン語・タイ語で、お客様にも管理画面にも対応しています。",
+    channel: "app",
+    body: "お客様が空き時間を見て、そのまま予約を確定できます。",
   },
 ];
 
-const sampleMenu = [
-  { name: "全身マッサージ 60分", price: 6000 },
-  { name: "フットマッサージ 30分", price: 3500 },
-  { name: "全身+フット 90分", price: 9000 },
+const settings = [
+  { name: "メニューと料金", detail: "施術メニューの追加や値段の変更" },
+  { name: "スタッフの出勤表", detail: "誰がいつ入っているか" },
+  { name: "営業時間と休業日", detail: "臨時休業もその日のうちに反映" },
 ];
+
+const languages = [
+  { name: "日本語", lang: "ja" },
+  { name: "English", lang: "en" },
+  { name: "中文", lang: "zh" },
+  { name: "한국어", lang: "ko" },
+  { name: "Deutsch", lang: "de" },
+  { name: "Nederlands", lang: "nl" },
+  { name: "Français", lang: "fr" },
+  { name: "Español", lang: "es" },
+  { name: "ภาษาไทย", lang: "th" },
+];
+
+function ChannelChip({ channel }: { channel: Channel }) {
+  const style = channelStyles[channel];
+  return (
+    <span
+      className={`inline-block shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold ${style.className}`}
+    >
+      {style.label}
+    </span>
+  );
+}
 
 export default function LandingPage() {
   return (
     <MobileFrame>
-      <div className="space-y-4 pb-12">
-        <div className="overflow-hidden rounded-[32px] bg-gradient-to-br from-green-900 via-green-800 to-green-600 px-6 pb-7 pt-8 text-center text-white shadow-xl">
-          <p className="text-2xl font-black tracking-wide">Yoyakus</p>
-
-          <h1 className="mt-4 text-xl font-bold leading-relaxed">
-            「電話対応や紙の予約帳に、
-            <br />
-            もう振り回されたくない」
-          </h1>
-
-          <p className="mx-auto mt-2 max-w-[280px] text-sm leading-6 text-white/85">
-            そんな小さなお店のための、今日から無理なく使える予約管理アプリです。
-          </p>
-
-          <div className="mx-auto mt-6 w-[200px] rounded-[32px] border-[6px] border-stone-950 bg-stone-950 shadow-2xl">
-            <div className="overflow-hidden rounded-[24px] bg-stone-100">
-              <div className="relative h-24 bg-gradient-to-br from-[#2b241d] via-[#5f4b36] to-[#c9ad7f]">
-                <div className="absolute inset-0 bg-black/25" />
-                <div className="relative z-10 flex h-full flex-col justify-end p-3 text-left">
-                  <p className="text-[8px] font-bold uppercase tracking-wide text-white/80">
-                    サンプル
-                  </p>
-                  <p className="font-serif text-base leading-tight text-white">
-                    ◯◯マッサージ
-                  </p>
-                </div>
-              </div>
-
-              <div className="space-y-1.5 bg-white p-3">
-                {sampleMenu.map((menu) => (
-                  <div
-                    key={menu.name}
-                    className="flex items-center justify-between rounded-xl border border-stone-200 px-2 py-1.5"
-                  >
-                    <span className="text-[10px] font-bold text-stone-800">
-                      {menu.name}
-                    </span>
-                    <span className="text-[10px] font-bold text-stone-900">
-                      ¥{menu.price.toLocaleString()}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <Link href="/apply" className="mx-auto mt-6 block max-w-[280px]">
-            <Button variant="secondary">無料で使ってみる</Button>
+      <div className="pb-10">
+        <header className="flex items-center justify-between px-1">
+          <p className="text-xl font-black tracking-tight text-green-900">Yoyakus</p>
+          <Link
+            href="/login"
+            prefetch={false}
+            className="rounded-full px-3 py-1.5 text-sm font-bold text-green-900 focus-visible:outline-2 focus-visible:outline-green-900"
+          >
+            ログイン
           </Link>
+        </header>
 
-          <p className="mt-2 text-xs text-white/70">
+        <section className="px-1 pt-8">
+          <h1 className="text-[28px] leading-[1.35] font-black text-green-900">
+            電話対応や紙の予約帳に、
+            <br />
+            もう振り回されない。
+          </h1>
+          <p className="mt-3 text-[15px] leading-7 text-green-900/85">
+            小さなお店のための、今日から無理なく使える予約管理アプリです。
+          </p>
+        </section>
+
+        <figure className="mt-7 rounded-[28px] bg-white p-5 shadow-[0_18px_40px_-18px_rgba(50,66,94,0.55)]">
+          <figcaption className="flex items-baseline justify-between">
+            <span className="text-base font-black text-green-900">今日の予約</span>
+            <span className="text-xs text-stone-500">表示例</span>
+          </figcaption>
+
+          <ol className="mt-3">
+            {todaysBookings.map((booking, index) => (
+              <li
+                key={booking.time}
+                className="flex min-h-12 items-center gap-3 border-t border-dashed border-green-200 py-2"
+              >
+                <span className="w-11 shrink-0 text-sm font-bold text-green-700 tabular-nums">
+                  {booking.time}
+                </span>
+                {booking.menu && booking.channel ? (
+                  <div
+                    className="landing-booking flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1 rounded-xl bg-mustard-50 px-3 py-2"
+                    style={{ animationDelay: `${300 + index * 220}ms` }}
+                  >
+                    <span className="text-[13px] font-bold text-green-900">{booking.menu}</span>
+                    <ChannelChip channel={booking.channel} />
+                    {booking.deposit ? (
+                      <span className="text-[11px] font-bold text-green-700">予約金受取済み</span>
+                    ) : null}
+                  </div>
+                ) : (
+                  <span className="text-[13px] text-stone-400">空き</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </figure>
+
+        <div className="mt-7">
+          <Link
+            href="/apply"
+            className="block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-900"
+          >
+            <Button size="lg" tabIndex={-1}>
+              無料で使ってみる
+            </Button>
+          </Link>
+          <p className="mt-2 text-center text-xs text-green-900/75">
             登録は数分。今なら試用期間中で無料です。
           </p>
         </div>
 
-        {features.map((feature) => (
-          <Card key={feature.title} className="space-y-2">
-            <h2 className="text-lg font-bold text-stone-900">
-              {feature.title}
+        <div className="mt-10 space-y-10 rounded-[28px] bg-white px-5 py-8">
+          <section>
+            <h2 className="text-xl leading-snug font-black text-green-900">
+              予約の受け方は、お店が選べます
             </h2>
-            <p className="text-sm leading-6 text-stone-600">{feature.body}</p>
-          </Card>
-        ))}
+            <p className="mt-2 text-sm leading-6 text-stone-600">
+              すべてをアプリにする必要はありません。使いたい方法だけ選んでください。
+            </p>
+            <ul className="mt-4 space-y-3">
+              {channels.map((item) => (
+                <li key={item.channel} className="flex items-start gap-3">
+                  <span className="w-[76px] shrink-0 pt-0.5">
+                    <ChannelChip channel={item.channel} />
+                  </span>
+                  <span className="text-sm leading-6 text-stone-700">{item.body}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        <Card className="space-y-3 text-center">
-          <h2 className="text-lg font-bold text-stone-900">
-            まずは無料でお試しください
-          </h2>
-          <p className="text-sm leading-6 text-stone-600">
-            登録は数分で完了します。予約金(デポジット)や決済の設定は、必要になったタイミングで後から追加できます。
+          <section>
+            <h2 className="text-xl leading-snug font-black text-green-900">
+              予約金は、必要なお店だけ
+            </h2>
+            <p className="mt-2 mb-4 text-sm leading-6 text-stone-600">
+              無断キャンセルに困っているなら、カードでの予約金を設定できます。
+            </p>
+            <DepositToggle />
+          </section>
+
+          <section>
+            <h2 className="text-xl leading-snug font-black text-green-900">
+              お店の設定は、スマホで完結
+            </h2>
+            <dl className="mt-4 divide-y divide-green-100">
+              {settings.map((setting) => (
+                <div key={setting.name} className="py-3">
+                  <dt className="text-[15px] font-bold text-green-900">{setting.name}</dt>
+                  <dd className="mt-0.5 text-sm text-stone-600">{setting.detail}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+
+          <section>
+            <h2 className="text-xl leading-snug font-black text-green-900">9つの言語で使えます</h2>
+            <p className="mt-2 text-sm leading-6 text-stone-600">
+              お客様の予約画面も、お店の管理画面も同じ言語で。
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
+              {languages.map((language) => (
+                <li
+                  key={language.lang}
+                  lang={language.lang}
+                  className="text-2xl font-black text-green-800"
+                >
+                  {language.name}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        <section className="mt-4 rounded-[28px] bg-green-900 px-5 py-8 text-white">
+          <h2 className="text-xl leading-snug font-black">まずは無料で試してみてください</h2>
+          <p className="mt-2 text-sm leading-6 text-white/80">
+            登録は数分で完了します。予約金や決済の設定は、必要になってから追加できます。
           </p>
-          <Link href="/apply" className="block">
-            <Button>無料で使ってみる</Button>
+          <Link
+            href="/apply"
+            className="mt-5 block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <Button variant="secondary" size="lg" tabIndex={-1}>
+              無料で使ってみる
+            </Button>
           </Link>
-        </Card>
+        </section>
 
-        <p className="text-center text-sm text-stone-500">
+        <p className="mt-6 text-center text-sm text-green-900/80">
           すでにご利用中の店舗様は{" "}
           <Link
             href="/login"
             prefetch={false}
-            className="font-bold text-green-800"
+            className="font-bold text-green-900 underline underline-offset-2"
           >
             こちらからログイン
           </Link>

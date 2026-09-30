@@ -56,3 +56,24 @@ body {
     transform: translateY(0);
   }
 }
+
+@keyframes yoyaku-booking-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.landing-booking {
+  animation: yoyaku-booking-in 0.45s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-booking {
+    animation: none;
+  }
+}
