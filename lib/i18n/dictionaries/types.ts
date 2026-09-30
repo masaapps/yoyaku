@@ -303,6 +303,7 @@ export type Dictionary = {
     bookingsList: {
       pageTitle: string;
       subtitle: string;
+      newBookingButton: string;
       emptyState: string;
       customerLabel: string;
       contentLabel: string;

@@ -359,6 +359,7 @@ const nl: Dictionary = {
     bookingsList: {
       pageTitle: "Boekingen",
       subtitle: "Bekijk de opgeslagen boekingen.",
+      newBookingButton: "Boeking handmatig toevoegen",
       emptyState: "Nog geen boekingen.",
       customerLabel: "Klant: ",
       contentLabel: "Details: ",

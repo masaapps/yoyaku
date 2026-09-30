@@ -350,6 +350,7 @@ const th: Dictionary = {
     bookingsList: {
       pageTitle: "รายการจอง",
       subtitle: "สามารถตรวจสอบการจองที่บันทึกไว้ได้",
+      newBookingButton: "เพิ่มการจองด้วยตนเอง",
       emptyState: "ยังไม่มีการจอง",
       customerLabel: "ลูกค้า：",
       contentLabel: "รายละเอียด：",

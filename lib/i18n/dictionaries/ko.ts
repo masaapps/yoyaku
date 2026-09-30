@@ -347,6 +347,7 @@ const ko: Dictionary = {
     bookingsList: {
       pageTitle: "예약 목록",
       subtitle: "저장된 예약을 확인할 수 있습니다.",
+      newBookingButton: "예약 수동으로 추가",
       emptyState: "아직 예약이 없습니다.",
       customerLabel: "고객：",
       contentLabel: "내용：",

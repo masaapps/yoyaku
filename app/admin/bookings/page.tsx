@@ -51,6 +51,10 @@ export default async function AdminBookingsPage() {
           <p className="mt-2 text-sm text-stone-500">{t.subtitle}</p>
         </Card>
 
+        <Link href="/admin/bookings/new" className="block">
+          <Button>{t.newBookingButton}</Button>
+        </Link>
+
         {bookings.length === 0 ? (
           <Card>
             <p className="text-center text-sm text-stone-500">{t.emptyState}</p>

@@ -360,6 +360,7 @@ const es: Dictionary = {
     bookingsList: {
       pageTitle: "Reservas",
       subtitle: "Consulte las reservas guardadas.",
+      newBookingButton: "Añadir una reserva manualmente",
       emptyState: "Aún no hay reservas.",
       customerLabel: "Cliente: ",
       contentLabel: "Detalles: ",

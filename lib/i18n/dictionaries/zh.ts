@@ -344,6 +344,7 @@ const zh: Dictionary = {
     bookingsList: {
       pageTitle: "预约一览",
       subtitle: "可以确认已保存的预约。",
+      newBookingButton: "手动添加预约",
       emptyState: "暂无预约。",
       customerLabel: "顾客：",
       contentLabel: "内容：",
